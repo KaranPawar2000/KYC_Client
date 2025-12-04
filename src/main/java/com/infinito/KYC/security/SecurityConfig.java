@@ -37,12 +37,13 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("/auth/**", "/branch/**", "/role/**", "/user/**").permitAll()  // Allow public access
-                        .requestMatchers("/branch/get", "/branch/add", "/branch/update/**", "/logs/**", "/report/**", "/user/update-password/{id}").permitAll()  // Additional public paths
+                        .requestMatchers("/branch/get", "/branch/add", "/branch/update/**", "/logs/**", "/report/**", "/user/update-password/{id}").permitAll()
+                        .requestMatchers("/api/clients/receive").permitAll()
                         .anyRequest().authenticated()  // Require authentication for all other requests
                 )
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authenticationProvider(authenticationProvider())
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                .authenticationProvider(authenticationProvider());
+//                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
     }
 

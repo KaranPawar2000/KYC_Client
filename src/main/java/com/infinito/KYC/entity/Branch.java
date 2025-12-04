@@ -40,6 +40,9 @@
         @OneToMany(mappedBy = "branch",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
         private List<User> users = new ArrayList<>();
 
+        @ManyToOne(fetch = FetchType.LAZY)
+        @JoinColumn(name = "client_id")   // foreign key in branch table
+        private Client client;
 
 
 
